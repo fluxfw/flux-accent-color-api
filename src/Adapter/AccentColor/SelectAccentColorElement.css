@@ -1,0 +1,47 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+.title {
+    color: var(--select-accent-color-title-color);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.accent_colors {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    overflow-x: auto;
+    overflow-y: visible;
+    width: 100%;
+}
+
+.accent_color {
+    --select-accent-color-accent-color-color: var(--accent-color, #ffffff);
+    --select-accent-color-accent-color-selected-color: var(--color-scheme-foreground, #000000);
+    all: initial;
+    background-color: var(--select-accent-color-accent-color-color);
+    border-radius: 40px;
+    border: 3px solid #888888;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 40px;
+    margin: 5px;
+    width: 40px;
+}
+
+.accent_color:not([data-selected]),
+.accent_color[data-custom] {
+    cursor: pointer;
+}
+
+.accent_color[data-custom] {
+    border-style: dashed;
+    overflow: hidden;
+}
+
+.accent_color[data-selected] {
+    border-color: var(--select-accent-color-accent-color-selected-color);
+}

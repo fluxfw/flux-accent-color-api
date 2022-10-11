@@ -1,0 +1,3 @@
+:root {
+    --select-accent-color-title-color: var(--color-scheme-foreground, #000000);
+}
