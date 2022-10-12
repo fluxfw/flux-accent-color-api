@@ -66,6 +66,7 @@ export class GetSelectAccentColorElementCommand {
     getSelectAccentColorElement() {
         return SelectAccentColorElement.new(
             this.#accent_color_service.getAccentColor(),
+            this.#accent_color_service.getAccentColorValue(),
             this.#accent_colors,
             this.#css_api,
             this.#localization_api,
