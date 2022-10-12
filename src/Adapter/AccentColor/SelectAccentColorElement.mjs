@@ -13,6 +13,10 @@ export class SelectAccentColorElement extends HTMLElement {
      */
     #accent_color;
     /**
+     * @type {string}
+     */
+    #accent_color_value;
+    /**
      * @type {string[]}
      */
     #accent_colors;
@@ -39,6 +43,7 @@ export class SelectAccentColorElement extends HTMLElement {
 
     /**
      * @param {string} accent_color
+     * @param {string} accent_color_value
      * @param {string[]} accent_colors
      * @param {CssApi} css_api
      * @param {LocalizationApi} localization_api
@@ -46,9 +51,10 @@ export class SelectAccentColorElement extends HTMLElement {
      * @param {boolean} custom_accent_color
      * @returns {SelectAccentColorElement}
      */
-    static new(accent_color, accent_colors, css_api, localization_api, set, custom_accent_color = true) {
+    static new(accent_color, accent_color_value, accent_colors, css_api, localization_api, set, custom_accent_color = true) {
         return new this(
             accent_color,
+            accent_color_value,
             accent_colors,
             css_api,
             localization_api,
@@ -59,6 +65,7 @@ export class SelectAccentColorElement extends HTMLElement {
 
     /**
      * @param {string} accent_color
+     * @param {string} accent_color_value
      * @param {string[]} accent_colors
      * @param {CssApi} css_api
      * @param {LocalizationApi} localization_api
@@ -66,10 +73,11 @@ export class SelectAccentColorElement extends HTMLElement {
      * @param {boolean} custom_accent_color
      * @private
      */
-    constructor(accent_color, accent_colors, css_api, localization_api, set, custom_accent_color) {
+    constructor(accent_color, accent_color_value, accent_colors, css_api, localization_api, set, custom_accent_color) {
         super();
 
         this.#accent_color = accent_color;
+        this.#accent_color_value = accent_color_value;
         this.#accent_colors = accent_colors;
         this.#css_api = css_api;
         this.#localization_api = localization_api;
@@ -112,7 +120,7 @@ export class SelectAccentColorElement extends HTMLElement {
         for (const accent_color of this.#accent_colors) {
             const accent_color_element = document.createElement("div");
             accent_color_element.classList.add("accent_color");
-            accent_color_element.style.setProperty(ACCENT_COLOR_CSS_PROPERTY, accent_color);
+            accent_color_element.style.setProperty(ACCENT_COLOR_CSS_PROPERTY, `var(${ACCENT_COLOR_CSS_PROPERTY}-${accent_color})`);
             accent_color_element.title = accent_color;
 
             if (accent_color === this.#accent_color) {
@@ -141,9 +149,9 @@ export class SelectAccentColorElement extends HTMLElement {
             custom_accent_color_element.classList.add("accent_color");
             custom_accent_color_element.dataset.custom = true;
             custom_accent_color_element.style.setProperty(ACCENT_COLOR_CSS_PROPERTY, this.#accent_color);
-            custom_accent_color_element.title = this.#accent_color;
+            custom_accent_color_element.title = this.#accent_color_value;
             custom_accent_color_element.type = "color";
-            custom_accent_color_element.value = this.#accent_color;
+            custom_accent_color_element.value = this.#accent_color_value;
 
             if (!this.#accent_colors.includes(this.#accent_color)) {
                 custom_accent_color_element.dataset.selected = true;

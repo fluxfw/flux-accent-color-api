@@ -1,4 +1,5 @@
 import { GetAccentColorCommand } from "../Command/GetAccentColorCommand.mjs";
+import { GetAccentColorValueCommand } from "../Command/GetAccentColorValueCommand.mjs";
 import { GetSelectAccentColorElementCommand } from "../Command/GetSelectAccentColorElementCommand.mjs";
 import { RenderAccentColorCommand } from "../Command/RenderAccentColorCommand.mjs";
 import { SetAccentColorCommand } from "../Command/SetAccentColorCommand.mjs";
@@ -83,6 +84,14 @@ export class AccentColorService {
             this.#custom_accent_color
         )
             .getAccentColor();
+    }
+
+    /**
+     * @returns {string}
+     */
+    getAccentColorValue() {
+        return GetAccentColorValueCommand.new()
+            .getAccentColorValue();
     }
 
     /**

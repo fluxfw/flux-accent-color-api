@@ -94,7 +94,7 @@ export class AccentColorApi {
             `${__dirname}/../AccentColor/SelectAccentColorVariables.css`
         );
 
-        this.#renderAccentColor();
+        this.renderAccentColor();
     }
 
     /**
@@ -105,7 +105,7 @@ export class AccentColorApi {
         this.#accent_color_change_listeners.push(accent_color_change_listener);
 
         accent_color_change_listener(
-            this.getAccentColor()
+            this.getAccentColorValue()
         );
     }
 
@@ -117,10 +117,24 @@ export class AccentColorApi {
     }
 
     /**
+     * @returns {string}
+     */
+    getAccentColorValue() {
+        return this.#accent_color_service.getAccentColorValue();
+    }
+
+    /**
      * @returns {SelectAccentColorElement}
      */
     getSelectAccentColorElement() {
         return this.#accent_color_service.getSelectAccentColorElement();
+    }
+
+    /**
+     * @returns {void}
+     */
+    renderAccentColor() {
+        this.#accent_color_service.renderAccentColor();
     }
 
     /**
@@ -135,12 +149,5 @@ export class AccentColorApi {
             this.#settings_api,
             this.#custom_accent_color
         );
-    }
-
-    /**
-     * @returns {void}
-     */
-    #renderAccentColor() {
-        this.#accent_color_service.renderAccentColor();
     }
 }

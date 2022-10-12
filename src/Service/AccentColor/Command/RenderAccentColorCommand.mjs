@@ -41,10 +41,12 @@ export class RenderAccentColorCommand {
     renderAccentColor() {
         const accent_color = this.#accent_color_service.getAccentColor();
 
-        document.documentElement.style.setProperty(ACCENT_COLOR_CSS_PROPERTY, accent_color);
+        document.documentElement.style.setProperty(ACCENT_COLOR_CSS_PROPERTY, accent_color.startsWith("#") ? accent_color : `var(${ACCENT_COLOR_CSS_PROPERTY}-${accent_color})`);
+
+        const accent_color_value = this.#accent_color_service.getAccentColorValue();
 
         const theme_color_meta = document.head.querySelector("meta[name=theme-color]") ?? document.createElement("meta");
-        theme_color_meta.content = accent_color;
+        theme_color_meta.content = accent_color_value;
         theme_color_meta.name = "theme-color";
         if (!theme_color_meta.isConnected) {
             document.head.appendChild(theme_color_meta);
@@ -52,7 +54,7 @@ export class RenderAccentColorCommand {
 
         for (const accent_color_change_listener of this.#get_accent_color_change_listeners()) {
             accent_color_change_listener(
-                accent_color
+                accent_color_value
             );
         }
     }
